@@ -1,6 +1,6 @@
 import { Footer, Header } from "./components";
 import { Container } from "react-bootstrap";
-import { Home, ProductDetails } from "./pages";
+import { Cart, Home, ProductDetails } from "./pages";
 import {
   Outlet,
   Route,
@@ -28,6 +28,7 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index={true} path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/product/:id" element={<ProductDetails />} />
       </Route>
     )
