@@ -4,5 +4,6 @@ import Product from "./Product";
 import Rating from "./Rating";
 import Loading from "./Loading";
 import Message from "./Message";
+import FormContainer from "./FormContainer";
 
-export { Header, Footer, Product, Rating, Loading, Message };
+export { Header, Footer, Product, Rating, Loading, Message, FormContainer };

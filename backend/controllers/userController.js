@@ -52,8 +52,6 @@ export const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
-
-  return res.send("Register");
 });
 
 export const logoutUser = asyncHandler(async (req, res) => {
@@ -62,7 +60,7 @@ export const logoutUser = asyncHandler(async (req, res) => {
     expires: new Date(0),
   });
 
-  return res.send("Logged out successfully");
+  return res.json({ message: "Logged out successfully" });
 });
 
 export const getUserProfile = asyncHandler(async (req, res) => {

@@ -1,6 +1,8 @@
 import { Footer, Header } from "./components";
 import { Container } from "react-bootstrap";
-import { Cart, Home, ProductDetails } from "./pages";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Cart, Home, Login, ProductDetails, Register } from "./pages";
 import {
   Outlet,
   Route,
@@ -13,6 +15,7 @@ const App = () => {
   const Layout = () => {
     return (
       <>
+        <ToastContainer />
         <Header />
         <main className="py-3">
           <Container>
@@ -29,6 +32,8 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index={true} path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/product/:id" element={<ProductDetails />} />
       </Route>
     )
