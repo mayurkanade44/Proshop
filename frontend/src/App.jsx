@@ -1,8 +1,18 @@
-import { Footer, Header } from "./components";
+import { Footer, Header, PrivateRoute } from "./components";
 import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Cart, Home, Login, ProductDetails, Register } from "./pages";
+import {
+  Cart,
+  Home,
+  Login,
+  Order,
+  Payment,
+  PlaceOrder,
+  ProductDetails,
+  Register,
+  Shipping,
+} from "./pages";
 import {
   Outlet,
   Route,
@@ -15,7 +25,7 @@ const App = () => {
   const Layout = () => {
     return (
       <>
-        <ToastContainer />
+        <ToastContainer autoClose="2000" />
         <Header />
         <main className="py-3">
           <Container>
@@ -35,6 +45,13 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+
+        <Route path="" element={<PrivateRoute />}>
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/placeorder" element={<PlaceOrder />} />
+          <Route path="/order/:id" element={<Order />} />
+        </Route>
       </Route>
     )
   );
