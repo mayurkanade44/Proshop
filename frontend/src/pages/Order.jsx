@@ -8,6 +8,7 @@ import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPaypalClientIdQuery,
+  useDeliverOrderMutation,
 } from "../slices/orderApiSlice";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
@@ -23,6 +24,8 @@ const Order = () => {
   } = useGetOrderDetailsQuery(orderId);
 
   const [payOrder, { isLoading: payLoading }] = usePayOrderMutation();
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const {
     data: paypal,
@@ -50,6 +53,17 @@ const Order = () => {
     }
   }, [order, paypal, errorPaypal, loadingPaypal]);
 
+  const deliverOrderHandler = async () => {
+    try {
+      await deliverOrder(orderId).unwrap();
+      refetch();
+      toast.success("Order delivered");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message || error.message);
+    }
+  };
+
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -62,28 +76,30 @@ const Order = () => {
     });
   }
 
-  async function onApproveTest() {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch();
+  // async function onApproveTest() {
+  //   await payOrder({ orderId, details: { payer: {} } });
+  //   refetch();
 
-    toast.success("Order is paid");
-  }
+  //   toast.success("Order is paid");
+  // }
 
   function onError(err) {
     toast.error(err.message);
   }
 
-  function createOrder(data, actions) { return actions.order
-    .create({
-      purchase_units: [
-        {
-          amount: { value: order.totalPrice },
-        },
-      ],
-    })
-    .then((orderID) => {
-      return orderID;
-    });}
+  function createOrder(data, actions) {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: order.totalPrice },
+          },
+        ],
+      })
+      .then((orderID) => {
+        return orderID;
+      });
+  }
 
   return isLoading ? (
     <Loading />
@@ -221,7 +237,18 @@ const Order = () => {
                 )}
               </ListGroup.Item>
             )}
-            {/* Deliver Order */}
+            {loadingDeliver && <Loading />}
+            {user && user.isAdmin && order.isPaid && !order.isDelivered && (
+              <ListGroup.Item>
+                <Button
+                  type="button"
+                  className="btn btn-primary m-2"
+                  onClick={deliverOrderHandler}
+                >
+                  Mark As Delivered
+                </Button>
+              </ListGroup.Item>
+            )}
           </Card>
         </Col>
       </Row>

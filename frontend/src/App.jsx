@@ -1,4 +1,4 @@
-import { Footer, Header, PrivateRoute } from "./components";
+import { Footer, Header, PrivateRoute, AdminRoute } from "./components";
 import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +13,11 @@ import {
   Profile,
   Register,
   Shipping,
+  OrderList,
+  ProductList,
+  ProductEdit,
+  UserList,
+  UserEdit,
 } from "./pages";
 import {
   Outlet,
@@ -53,6 +58,14 @@ const App = () => {
           <Route path="/placeorder" element={<PlaceOrder />} />
           <Route path="/order/:id" element={<Order />} />
           <Route path="/profile" element={<Profile />} />
+        </Route>
+
+        <Route path="" element={<AdminRoute />}>
+          <Route path="/admin/orderList" element={<OrderList />} />
+          <Route path="/admin/productList" element={<ProductList />} />
+          <Route path="/admin/product/edit/:id" element={<ProductEdit />} />
+          <Route path="/admin/userList" element={<UserList />} />
+          <Route path="/admin/user/edit/:id" element={<UserEdit />} />
         </Route>
       </Route>
     )

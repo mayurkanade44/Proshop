@@ -7,6 +7,8 @@ import Message from "./Message";
 import FormContainer from "./FormContainer";
 import PrivateRoute from "./PrivateRoute";
 import CheckOutSteps from "./CheckOutSteps";
+import AdminRoute from "./AdminRoute";
+
 
 export {
   Header,
@@ -18,4 +20,5 @@ export {
   FormContainer,
   PrivateRoute,
   CheckOutSteps,
+  AdminRoute,
 };

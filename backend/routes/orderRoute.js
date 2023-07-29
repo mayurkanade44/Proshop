@@ -21,6 +21,6 @@ router.route("/:id").get(authProtect, getOrderById);
 router.route("/:id/pay").put(authProtect, updateOrderToPaid);
 router
   .route("/:id/deliver")
-  .get(authProtect, authAdmin, updateOrderToDelivered);
+  .put(authProtect, authAdmin, updateOrderToDelivered);
 
 export default router;
