@@ -5,6 +5,7 @@ import Order from "./Order";
 import Payment from "./Payment";
 import PlaceOrder from "./PlaceOrder";
 import ProductDetails from "./ProductDetails";
+import Profile from "./Profile";
 import Register from "./Register";
 import Shipping from "./Shipping";
 
@@ -18,4 +19,5 @@ export {
   Payment,
   PlaceOrder,
   Order,
+  Profile,
 };

@@ -12,14 +12,14 @@ const Header = () => {
   const { user } = useSelector((store) => store.auth);
   const [logout, { isLoading }] = useLogoutMutation();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const logoutHandler = async () => {
     try {
       const res = await logout().unwrap();
       dispatch(removeCredentials());
       toast.success(res.message);
-      navigate('/login')
+      navigate("/login");
     } catch (error) {
       console.log(error);
       toast.error(error?.data?.message || error.error);
@@ -55,9 +55,10 @@ const Header = () => {
               {user ? (
                 <>
                   <NavDropdown title={user.name} id="username">
-                    <Link to="/profile">
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
-                    </Link>
+                    <NavDropdown.Item>
+                      <Link to="/profile">Profile</Link>
+                    </NavDropdown.Item>
+
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout
                     </NavDropdown.Item>

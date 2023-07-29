@@ -18,7 +18,7 @@ router
   .get(authProtect, authAdmin, getAllOrders);
 router.route("/myOrder").get(authProtect, getMyOrder);
 router.route("/:id").get(authProtect, getOrderById);
-router.route("/:id/pay").get(authProtect, updateOrderToPaid);
+router.route("/:id/pay").put(authProtect, updateOrderToPaid);
 router
   .route("/:id/deliver")
   .get(authProtect, authAdmin, updateOrderToDelivered);

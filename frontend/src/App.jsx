@@ -10,6 +10,7 @@ import {
   Payment,
   PlaceOrder,
   ProductDetails,
+  Profile,
   Register,
   Shipping,
 } from "./pages";
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/payment" element={<Payment />} />
           <Route path="/placeorder" element={<PlaceOrder />} />
           <Route path="/order/:id" element={<Order />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
     )
