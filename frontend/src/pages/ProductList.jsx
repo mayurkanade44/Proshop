@@ -14,9 +14,9 @@ import {
 } from "../slices/productsApiSlice";
 
 const ProductList = () => {
-  const { pageNumber } = useParams();
+  const { page } = useParams();
 
-  const { data, isLoading, error, refetch } = useGetProductsQuery();
+  const { data, isLoading, error, refetch } = useGetProductsQuery({ page });
   const [deleteProduct, { isLoading: loadingDelete }] =
     useDeleteProductMutation();
   const [createProduct, { isLoading: loadingCreate }] =
@@ -75,7 +75,7 @@ const ProductList = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((product) => (
+              {data.products.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>

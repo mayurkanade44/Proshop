@@ -9,7 +9,7 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import { Loading, Message, Rating } from "../components";
+import { Loading, Message, Meta, Rating } from "../components";
 import {
   useCreateReviewMutation,
   useGetSingleProductQuery,
@@ -72,6 +72,7 @@ const ProductDetails = () => {
         </Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />

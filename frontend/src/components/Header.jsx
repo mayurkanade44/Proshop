@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { removeCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
   const { cartItems } = useSelector((store) => store.cart);
@@ -39,6 +40,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              <SearchBox />
               <Nav.Link className="mx-2">
                 <Link to="/cart">
                   <FaShoppingCart

@@ -2,8 +2,16 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 
 export const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
+  const pageSize = 4;
+  const page = Number(req.query.page) || 1;
+  const keyword = req.query.keyword
+    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    : {};
+  const count = await Product.countDocuments(keyword);
+  const products = await Product.find(keyword)
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 export const getProductById = asyncHandler(async (req, res) => {
@@ -79,7 +87,7 @@ export const createProductReview = asyncHandler(async (req, res) => {
     );
 
     if (alreadyReviewed) {
-      console.log('ok');
+      console.log("ok");
       res.status(400);
       throw new Error("Product already reviewed");
     }
@@ -101,9 +109,15 @@ export const createProductReview = asyncHandler(async (req, res) => {
     );
 
     await product.save();
-    res.status(201).json({message:"Review Added"})
+    res.status(201).json({ message: "Review Added" });
   } else {
     res.status(404);
     throw new Error("Product not found");
-  } 
+  }
+});
+
+export const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find().sort({ rating: -1 }).limit(3);
+
+  res.json(products);
 });
